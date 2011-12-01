@@ -1,0 +1,6 @@
+Revision history for Perl extension Thread::IID.
+
+0.01  Wed Nov 30 22:59:28 2011
+	- original version; created by h2xs 1.23 with options
+		-A -n Thread::IID
+
