@@ -13,6 +13,6 @@ BEGIN { use_ok('Thread::IID') };
 # Insert your test code below, the Test::More module is use()ed here so read
 # its man page ( perldoc Test::More ) for help writing this test script.
 
-ok(Thread::IID::get_interpreter_id() =~ m(\A[0-9]+\z),      'looks like an integer');
-is(Thread::IID::get_interpreter_id(),Thread::IID::get_interpreter_id(),  'always the same');
+ok(Thread::IID::interpreter_id() =~ m(\A[0-9]+\z),      'looks like an integer');
+is(Thread::IID::interpreter_id(),Thread::IID::interpreter_id(),  'always the same');
 

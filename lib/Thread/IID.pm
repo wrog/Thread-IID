@@ -17,7 +17,7 @@ our @ISA = qw(Exporter);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
-  get_interpreter_id
+  interpreter_id
 ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
@@ -42,7 +42,7 @@ Thread::IID - unique perl Interpreter IDs
 
   use Thread::IID ':all';
 
-  print "Hi, I am interpreter #" . get_interpreter_id();
+  print "Hi, I am interpreter #" . interpreter_id();
 
 =head1 DESCRIPTION
 
@@ -59,7 +59,7 @@ the interpreter ID is more likely to be what you actually want.
 
 None by default.  The following function is available:
 
-=head3 get_interpreter_id()
+=head3 interpreter_id()
 
 Returns the current perl interpreter instance's (integer) ID
 
@@ -75,7 +75,7 @@ this will return the same ID for interpreters in different processes.
 
 In the following
 
- my @value = (0, get_interpreter_id(), $$, time());
+ my @value = (0, interpreter_id(), $$, time());
  sleep(1);
 
  sub counter {
