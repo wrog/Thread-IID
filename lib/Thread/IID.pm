@@ -1,8 +1,9 @@
-package Thread::IID;
-
-use 5.008001;
 use strict;
 use warnings;
+
+package Thread::IID;
+
+ use 5.008001;
 
 require Exporter;
 
@@ -16,7 +17,7 @@ our @ISA = qw(Exporter);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
-  get_interpreter_id	
+  get_interpreter_id
 ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
@@ -35,7 +36,7 @@ __END__
 
 =head1 NAME
 
-Thread::IID - Perl extension for obtaining unique interpreter IDs
+Thread::IID - unique perl Interpreter IDs
 
 =head1 SYNOPSIS
 
@@ -45,25 +46,47 @@ Thread::IID - Perl extension for obtaining unique interpreter IDs
 
 =head1 DESCRIPTION
 
-This module provides a single function for identifying Perl interpreter 
-instances.
+This provides an identifier to distinguish Perl interpreter instances.
+
+In environments like L<mod_perl|mod_perl>, where interpreters are
+cloned and passed around between OS threads, the thread ID gives no
+indication of which interpreter instance is actually running
+(and hence which corresponding set of values/data-structures
+is actually being referenced); for such situations
+the interpreter ID is more likely to be what you actually want.
 
 =head2 EXPORT
 
-None by default.  The following function is avaliable:
+None by default.  The following function is available:
 
 =head3 get_interpreter_id()
 
-Returns an ID for the current Perl interpreter instance.  
+Returns the current perl interpreter instance's (integer) ID
 
-Where multiple interpreters have been created to run in 
-threads of the current process the IDs returned will be 
-different for each interpreter, regardless of the whether 
-the interpreters are being run on distinct threads or not.
+Where multiple interpreters have been created to run in
+threads of the current process the IDs returned will be
+distinct for each interpreter, regardless of which
+threads are running which interpreters.
+
+=head2 EXAMPLE
+
+In the following
+
+ my @value = (0, get_interpreter_id(), $$, time());
+ sleep(1.5);
+
+ sub counter {
+     ++$value[0];
+     return @value;
+ }
+
+C<counter()> is guaranteed to return a value distinct from
+all other invocations in all processes/threads on a given host
+that contain this code.
 
 =head1 AUTHOR
 
-Original code by ikegami at PerlMonks.
+Original XS code is from a posting by ikegami at PerlMonks.
 Packaged by Roger Crew, E<lt>crew@cs.stanford.eduE<gt>
 
 =head1 COPYRIGHT AND LICENSE
