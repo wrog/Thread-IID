@@ -24,7 +24,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = ();
 
-our $VERSION = '0.01';
+our $VERSION;
 
 require XSLoader;
 XSLoader::load('Thread::IID', $VERSION);
