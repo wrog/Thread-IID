@@ -48,7 +48,7 @@ Thread::IID - unique perl Interpreter IDs
 
 This provides an identifier to distinguish Perl interpreter instances.
 
-In environments like L<mod_perl|mod_perl>, where interpreters are
+In environments like L<mod_perl2|mod_perl2>, where interpreters are
 cloned and passed around between OS threads, the thread ID gives no
 indication of which interpreter instance is actually running
 (and hence which corresponding set of values/data-structures
@@ -68,21 +68,24 @@ threads of the current process the IDs returned will be
 distinct for each interpreter, regardless of which
 threads are running which interpreters.
 
+It is possible (and likely in the case a C<fork()> has occurred) that
+this will return the same ID for interpreters in different processes.
+
 =head2 EXAMPLE
 
 In the following
 
  my @value = (0, get_interpreter_id(), $$, time());
- sleep(1.5);
+ sleep(1);
 
  sub counter {
      ++$value[0];
      return @value;
  }
 
-C<counter()> is guaranteed to return a value distinct from
-all other invocations in all processes/threads on a given host
-that contain this code.
+C<counter()> is guaranteed to return a list value distinct from all
+other invocations in all processes/threads that are running this code
+on a given host.
 
 =head1 AUTHOR
 
@@ -91,11 +94,10 @@ Packaged by Roger Crew, E<lt>crew@cs.stanford.eduE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2011 by Roger Crew
+Copyright (C) 2011 by Roger Crew.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.1 or,
 at your option, any later version of Perl 5 you may have available.
-
 
 =cut
