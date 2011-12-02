@@ -42,7 +42,7 @@ Thread::IID - unique perl Interpreter IDs
 
   use Thread::IID ':all';
 
-  print "Hi, I am interpreter #" . interpreter_id();
+  print "Hi, I am interpreter #" . interpreter_id;
 
 =head1 DESCRIPTION
 
@@ -75,7 +75,7 @@ this will return the same ID for interpreters in different processes.
 
 In the following
 
- my @value = (0, interpreter_id(), $$, time());
+ my @value = (0, interpreter_id, $$, time);
  sleep(1);
 
  sub counter {

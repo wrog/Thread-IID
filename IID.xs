@@ -6,6 +6,7 @@ MODULE = Thread::IID		PACKAGE = Thread::IID
 
 UV
 interpreter_id()
+   PROTOTYPE: 
    CODE:
       RETVAL = ((UV)PERL_GET_THX)>>11;
 
