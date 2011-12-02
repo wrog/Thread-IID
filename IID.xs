@@ -7,7 +7,8 @@ MODULE = Thread::IID		PACKAGE = Thread::IID
 UV
 get_interpreter_id()
    CODE:
-      RETVAL = (UV)PERL_GET_THX;
+      RETVAL = ((UV)PERL_GET_THX)>>11;
+
 
    OUTPUT:
       RETVAL
