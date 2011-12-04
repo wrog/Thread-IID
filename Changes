@@ -1,12 +1,16 @@
 {{$NEXT}}
 
+    * replaced hardwired >>11 just in case sizeof(PerlInterpreter)
+      changes radically on different platforms
+
+    * use PERL_NO_GET_CONTEXT and aTHX rather than PERL_GET_THX
+
 0.02      Dec 02 2011
 
-    * added () prototype for interpreter_id
+    * exported function is now named 'interpreter_id'
+      with prototype ()
 
-    * removed 'get_'; function is now named 'interpreter_id'
-
-    * more tests
+    * added more tests
 
     * convert to Dist::Zilla
 
