@@ -36,7 +36,7 @@ __END__
 
 =head1 NAME
 
-Thread::IID - unique perl Interpreter IDs
+Thread::IID - unique Interpreter IDs
 
 =head1 SYNOPSIS
 
@@ -49,29 +49,35 @@ Thread::IID - unique perl Interpreter IDs
 This provides an identifier to distinguish Perl interpreter instances.
 
 In environments like L<mod_perl2|mod_perl2>, where interpreters can be
-cloned and passed around between OS threads, the thread ID gives no
-indication of which interpreter instance is actually running and
-hence which corresponding set of values/data-structures is actually
-being referenced.  For such situations the interpreter ID is more
-likely to be what you actually want.
+cloned and arbitrarily assigned to OS threads, the thread ID gives no
+indication of which interpreter instance is actually running and hence
+which corresponding set of values/data-structures is actually being
+referenced.  For such situations an interpreter ID is more likely to
+be what you actually want.
 
 =head2 EXPORT
 
 None by default.  The following function is available:
 
-=head3 interpreter_id()
+=head3 interpreter_id
 
-Returns an (integer) ID for this instance of the perl interpreter.
+Returns an (integer) ID for the Perl interpreter from which this call
+is being made.  Returns 0 if the Perl was not compiled to allow
+multiple interpreters.
 
-Where multiple interpreters have been created to run in
-threads of the current process, the IDs returned will be
-distinct for each interpreter, regardless of which
-threads are running which interpreters.
+Where multiple interpreters have been created to run in threads of the
+current process and are concurrently in existence, the IDs returned
+will be distinct for each interpreter, regardless of which threads are
+running which interpreters.  However, once an interpreter exits and its
+memory is reclaimed, nothing prevents its ID from being reused.
+It is also possible for the same ID to be returned from interpreters 
+in different processes (and I<likely> in the event that the processes 
+were created by C<fork()>).
 
-It is possible (and likely in the case a C<fork()> has occurred) that
-this will return the same ID for interpreters in different processes.
+In the current implementation, the Interpreter ID is derived from the 
+memory address of the PerlInterpreter structure.
 
-=head2 EXAMPLE
+=head1 EXAMPLE
 
 In the following
 
@@ -89,9 +95,11 @@ on a given host.
 
 =head1 AUTHOR
 
-Packaged by Roger Crew E<lt>crew@cs.stanford.eduE<gt>.
+Roger Crew E<lt>crew@cs.stanford.eduE<gt>.
 
-Original XS code is from a posting by ikegami at PerlMonks.
+=head1 ACKNOWLEDGEMENTS
+
+The original XS code for this was from a posting by ikegami at PerlMonks.
 
 =head1 COPYRIGHT AND LICENSE
 
