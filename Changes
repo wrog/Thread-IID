@@ -1,6 +1,17 @@
-Revision history for Perl extension Thread::IID.
+{{$NEXT}}
 
-0.01  Wed Nov 30 22:59:28 2011
-	- original version; created by h2xs 1.23 with options
-		-A -n Thread::IID
+0.02      Dec 02 2011
+
+    * added () prototype for interpreter_id
+
+    * removed 'get_'; function is now named 'interpreter_id'
+
+    * more tests
+
+    * convert to Dist::Zilla
+
+0.01      Nov 30 2011
+
+    * original version;
+      created by h2xs 1.23 with options -A -n Thread::IID
 
