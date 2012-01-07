@@ -2,6 +2,8 @@
 
 0.04      Jan 03 2012
 
+    * move setting of ISA/EXPORT_ vars into BEGIN block
+
 0.03      Dec 04 2011
 
     * replaced hardwired >>11 just in case sizeof(PerlInterpreter)
